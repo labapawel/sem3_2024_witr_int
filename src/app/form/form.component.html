@@ -2,38 +2,39 @@
 
     <div class="col-12 mt-3">
             <label for="nazwa" class="form-label">Nazwa</label>
-            <input type="text" class="form-control" id="nazwa" [(ngModel)]="pole" placeholder="nazwa">
+            <input type="text" class="form-control" id="nazwa" [(ngModel)]="dane.nazwa" placeholder="nazwa">
     </div>
 
     <div class="col-12 mt-3">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
+            <input class="form-check-input" type="radio" [(ngModel)]="dane.rodzaj" value="0" name="wplata" id="wplata">
+            <label class="form-check-label" for="wplata">
               Wpłata
-            </label>
+            </label> 
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
+          <div class="form-check"> {{dane.rodzaj}}
+            <input class="form-check-input" type="radio" [(ngModel)]="dane.rodzaj" value="1" name="wplata" id="wyplata">
+            <label class="form-check-label" for="wyplata">
               Wydatek
             </label>
           </div>
     </div>
 
     <div class="col-12 mt-3">
-        <label for="data" class="form-label">Data</label>
-        <input type="date" class="form-control" id="data" [(ngModel)]="pole" placeholder="Data">
+        <label for="data" class="form-label">Data</label> 
+        <!-- YYYY-MM-DD -->
+        <input type="date" class="form-control" id="data" [value]="getData()" (change)="setDate($event)" placeholder="Data">
     </div>
 
     <div class="col-12 mt-3">
         <label for="kwota" class="form-label">Kwota</label>
-        <input type="number" class="form-control" id="kwota" [(ngModel)]="pole" placeholder="kwota">
+        <input type="number" class="form-control" id="kwota" [(ngModel)]="dane.kwota" placeholder="kwota">
     </div>
 
     <div class="col-12 mt-3">
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Aktywność</label>
+            <input class="form-check-input" type="checkbox" role="switch" [(ngModel)]="dane.aktywnosc" id="aktywnosc">
+            <label class="form-check-label" for="aktywnosc">Aktywność</label>
           </div>
     </div>
 
