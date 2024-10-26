@@ -7,7 +7,8 @@ import { Status } from './status';
   providedIn: 'root'
 })
 export class MojakasaService {
- 
+  static lastID : number = 0;
+
   public static Statusy : Status[] = [
     {id:0, nazwa: "Normalny"},
     {id:100, nazwa: "Pilny"},
@@ -27,6 +28,12 @@ export class MojakasaService {
       e.date = new Date(e.date);
     })
     this.sub.next(this.daneKasy);
+
+    if(this.daneKasy.length)
+    {
+      MojakasaService.lastID = Math.max(...this.daneKasy.map(e=>e.id))
+    }
+
   }
 
   save(){
@@ -37,8 +44,16 @@ export class MojakasaService {
     this.load();
   }
 
-  add(dane: Kasa){
-    this.daneKasy.push(dane);
+  addOrUpdate(dane: Kasa){
+    if(dane.id>0){
+      let index = this.daneKasy.findIndex(e=>e.id==dane.id);
+      if(index>=0){
+        this.daneKasy[index] = dane;
+      }
+    } else {
+      this.daneKasy.push(dane);
+      dane.id = ++MojakasaService.lastID;
+    }
     this.save();
     this.sub.next(this.daneKasy);
   }

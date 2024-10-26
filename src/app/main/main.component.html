@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-12">
-        <p (click)="add()">main works!</p>
-
+        <div class="d-flex justify-content-end">Rozliczenie: <span [ngClass]="{'text-danger': suma<'0', 'text-success':suma>'0'}"> {{suma}} </span> zł</div>
+        <hr>
+        <app-kasa-element *ngFor="let elKasy of listaKasa" [daneElementu]="elKasy"></app-kasa-element>
     </div>
 
 </div>
