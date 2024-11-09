@@ -17,6 +17,14 @@ export class MojakasaService {
   private sub : BehaviorSubject<Kasa[]> = new BehaviorSubject<Kasa[]>([]);
   private daneKasy : Kasa[] = [];
 
+  public getKasa(id: number):Kasa {
+    let kasaIndex = this.daneKasy.findIndex( e=>e.id == id);
+    if(kasaIndex>=0)
+        return this.daneKasy[kasaIndex];
+    return {id:-1, aktywnosc:true, date: new Date(), kwota:0, nazwa:"", rodzaj:"0", 
+      status:0}  
+  }
+
   load() {
     let dane = localStorage.getItem("3sem_kasa");
     if(!dane) {
@@ -42,6 +50,12 @@ export class MojakasaService {
 
   constructor() {
     this.load();
+  }
+
+  remove(id:number){
+    this.daneKasy = this.daneKasy.filter(e=>e.id != id);
+    this.save();
+    this.sub.next(this.daneKasy);
   }
 
   addOrUpdate(dane: Kasa){

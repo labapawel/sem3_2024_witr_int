@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MojakasaService } from '../mojakasa.service';
 import { Kasa } from '../kasa';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +17,21 @@ export class FormComponent {
   public statusy = MojakasaService.Statusy;
   public dane : Kasa = {id:-1, aktywnosc:true, date: new Date(), kwota:0, nazwa:"", rodzaj:"0", 
                         status:0}
+
+  ngOnInit(){
+    let strId = this.route.snapshot.paramMap.get('id');
+    let id = strId != null ? parseInt(strId) : -1;
+    this.dane = this.serv.getKasa(id);
+
+  }     
+  usun(){
+    this.serv.remove(this.dane.id);
+    this.router.navigate(['/']);
+  }
+  
+  anuluj(){
+    this.router.navigate(['/']);
+  }
 
   getData() : string{
     const data = this.dane.date.toLocaleDateString().split('.'); // DD.MM.YYYY
@@ -32,7 +47,6 @@ export class FormComponent {
     this.router.navigate(['/']);
   }
   
-  constructor ( private serv: MojakasaService, private router : Router){
-
+  constructor ( private serv: MojakasaService, private router : Router,private route: ActivatedRoute){
   }
 }
