@@ -1,0 +1,11 @@
+<header>
+    <span class="btn btn-light mx-3">Poprzedni</span>
+    <span class="mx-3">Luty 2024</span>
+    <span class="btn btn-light mx-3">Następny</span>
+
+</header>
+<hr />
+<main class="kalendarz mt-3">
+    <app-kalendarzdzien *ngFor="let dzienTygodnia of [1,2,3,4,5,6,7]" typPola="naglowek" [dzienTygodnia]="dzienTygodnia"></app-kalendarzdzien>
+</main>
+<footer></footer>

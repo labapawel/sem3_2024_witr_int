@@ -1,0 +1,6 @@
+.kalendarz {
+    display: grid;
+    height: 70vh;
+    gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+}
