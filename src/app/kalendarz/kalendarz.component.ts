@@ -17,8 +17,22 @@ export class KalendarzComponent {
 
   }
   public tabDat: Array<any> = [];
-  public obliczDni() {
+  public tablicaDni(): Moment[] {
+    let dni:Moment[] = [];
+    let dzien = moment(this._data).startOf('month');
+    dzien = dzien.day(1);
+    while(dzien.month() <= this._data.month()){
+      dni.push(dzien)
+      dzien =  moment(dzien).add(1,'day');
+    }
+    while(dzien.day() == 0){
+      dni.push(dzien)
+      dzien =  moment(dzien).add(1,'day');
+    }
 
+   // console.log(dzien.month())
+    return dni;
   }
+
 
 }

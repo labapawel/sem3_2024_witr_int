@@ -7,5 +7,7 @@
 <hr />
 <main class="kalendarz mt-3">
     <app-kalendarzdzien *ngFor="let dzienTygodnia of [1,2,3,4,5,6,7]" typPola="naglowek" [dzienTygodnia]="dzienTygodnia"></app-kalendarzdzien>
+    <app-kalendarzdzien *ngFor="let dzienMiesiaca of tablicaDni()" typPola="dzien" [dzien]="dzienMiesiaca"></app-kalendarzdzien>
+
 </main>
 <footer></footer>
