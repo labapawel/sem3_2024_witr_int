@@ -1,3 +1,4 @@
-<div [ngClass]="{pole:true,naglowek: (typPola=='naglowek'), 'd-flex':true, 'justify-content-center': true, 'bg-light-subtle': jskiDzienTygodnia()<6, 'bg-body-secondary': jskiDzienTygodnia()>=6}">
+<div [ngClass]="{pole:true,naglowek: (typPola=='naglowek'), 'd-flex':true, 'flex-column': true, 'justify-content-center': true, 'bg-light-subtle': jskiDzienTygodnia()<6, 'bg-body-secondary': jskiDzienTygodnia()>=6}">
     <span [ngClass]="{dzien:true, fs:tenMiesiac(), dd: dzis() }">{{tekst()}}</span>
+    <div *ngFor="let kasa of kasaNaDzis()" (click)="edycja(kasa.id)" [ngClass]="{badge: true, 'mt-1':true, 'text-bg-danger': kasa.rodzaj!='0', 'text-bg-success': kasa.rodzaj=='0'}"><span>{{kasa.nazwa}}</span><br> {{kasa.kwota.toFixed(2)}} zł</div>
 </div>

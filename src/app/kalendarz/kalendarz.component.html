@@ -1,6 +1,6 @@
 <header>
     <span class="btn btn-light mx-3">Poprzedni</span>
-    <span class="mx-3">Luty 2024</span>
+    <span class="mx-3">{{_data.format("MMMM YYYY")}}</span>
     <span class="btn btn-light mx-3">Następny</span>
 
 </header>
@@ -10,4 +10,7 @@
     <app-kalendarzdzien *ngFor="let dzienMiesiaca of tablicaDni()" typPola="dzien" [dzien]="dzienMiesiaca"></app-kalendarzdzien>
 
 </main>
-<footer></footer>
+<footer class="d-flex align-items-center">
+    <div [ngClass]="{'ms-auto':true, 'text-success':(suma>0), 'text-danger':(suma<0)}">
+                            Do wydania: {{suma.toFixed(2)}} zł</div>
+</footer>

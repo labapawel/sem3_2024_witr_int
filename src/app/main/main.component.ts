@@ -14,16 +14,16 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 export class MainComponent {
   public listaKasa : Kasa[] = [];
   public get suma() : string{
-      let wplaty = this.listaKasa.filter(e=>e.rodzaj == "0").reduce((acc, kasa: Kasa)=>acc+kasa.kwota, 0);
-      let wyplaty = this.listaKasa.filter(e=>e.rodzaj == "1").reduce((acc, kasa: Kasa)=>acc+kasa.kwota, 0);
-      return (wplaty - wyplaty).toFixed(2);
+      return MojakasaService.suma(this.listaKasa).toFixed(2);
   }
   constructor ( private serw : MojakasaService){
     serw.subscribe().subscribe( dane => {
-
-      this.listaKasa = dane.sort((a: Kasa,b : Kasa)=>{
-        return a.rodzaj=="0" ? -1 : 1;
-      });
+      let now = new Date();
+      this.listaKasa = dane
+          .filter(e=>e.date.getFullYear() == now.getFullYear() && e.date.getMonth() == now.getMonth())
+          .sort((a: Kasa,b : Kasa)=>{
+                  return a.rodzaj=="0" ? -1 : 1;
+                });
     })
   }
 

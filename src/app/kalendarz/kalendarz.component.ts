@@ -1,18 +1,36 @@
 import { Component } from '@angular/core';
 import { KalendarzdzienComponent } from '../kalendarzdzien/kalendarzdzien.component';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import {Moment} from 'moment';
 import moment from 'moment';
+import { Kasa } from '../kasa';
+import { MojakasaService } from '../mojakasa.service';
 
 @Component({
   selector: 'app-kalendarz',
   standalone: true,
-  imports: [KalendarzdzienComponent, NgFor],
+  imports: [KalendarzdzienComponent, NgFor, NgClass],
   templateUrl: './kalendarz.component.html',
   styleUrl: './kalendarz.component.scss'
 })
 export class KalendarzComponent {
-  private _data = moment().locale('pl');
+
+  public listaKasa : Kasa[] = [];
+  public get suma() : number{
+      return MojakasaService.suma(this.listaKasa);
+  }
+  constructor ( private serw : MojakasaService){
+    serw.subscribe().subscribe( dane => {
+      let now = new Date();
+      this.listaKasa = dane
+          .filter(e=>e.date.getFullYear() == now.getFullYear() && e.date.getMonth() == now.getMonth())
+          .sort((a: Kasa,b : Kasa)=>{
+                  return a.rodzaj=="0" ? -1 : 1;
+                });
+    })
+  }
+    
+  public _data = moment().locale('pl');
   public newdate(nowaData:Moment) : void{
 
   }

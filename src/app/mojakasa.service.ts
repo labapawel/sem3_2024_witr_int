@@ -57,6 +57,21 @@ export class MojakasaService {
     this.save();
     this.sub.next(this.daneKasy);
   }
+  public wydatkiNaDzien( data : Date) : Kasa[] {
+
+    return this.daneKasy          
+        .filter(e=>e.date.getFullYear() == data.getFullYear() 
+                && e.date.getMonth() == data.getMonth() 
+                && e.date.getDate() == data.getDate() 
+              )
+  }
+
+  public static suma(dane: Kasa[]):number {
+    let wplaty = dane.filter(e=>e.rodzaj == "0").reduce((acc, kasa: Kasa)=>acc+kasa.kwota, 0);
+    let wyplaty = dane.filter(e=>e.rodzaj == "1").reduce((acc, kasa: Kasa)=>acc+kasa.kwota, 0);
+    return (wplaty - wyplaty);
+
+  }
 
   addOrUpdate(dane: Kasa){
     if(dane.id>0){

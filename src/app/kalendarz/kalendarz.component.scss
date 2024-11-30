@@ -3,4 +3,5 @@
     height: 70vh;
     gap: 5px;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr repeat(5, 4fr);
 }
